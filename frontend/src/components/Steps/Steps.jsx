@@ -8,6 +8,7 @@ export const CustomSteps = ({steps}) => {
                     
         <Steps
             size="small"
+            style={{maxWidth:'1000px'}}
             current={steps}
             direction='horizontal'
             items={[

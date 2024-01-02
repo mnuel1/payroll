@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Alert, Form, Input } from 'antd';
+import { Form, Input, Button } from 'antd';
 
 
-export const Credentials = ({}) => {
+export const Credentials = ({handleNext, handleBack}) => {
     const [form] = Form.useForm();
     const validatePassword = (_, value) => {
         // Password strength criteria
@@ -18,19 +18,22 @@ export const Credentials = ({}) => {
     
         return Promise.resolve();
     };
-
+    const onFinish = (values) => {
+        console.log(values);
+        handleNext()
+    }
     return (
         <>
           
-            {/* <Alert message="Input N/A if not applicable" type="info" />     */}
-          
+                      
             <div className='mt-4 border-gray-300 '>                                
                 <Form
                     form={form}
                     name="trigger"   
                     style={{
                         maxWidth: 800,                        
-                    }}                     
+                    }}
+                    onFinish={onFinish}
                     layout="vertical"
                     autoComplete="off"
                 >                    
@@ -95,7 +98,12 @@ export const Credentials = ({}) => {
                         ]}                        
                     >
                         <Input placeholder="Repeat your password to confirm it" />
-                    </Form.Item>                                                            
+                    </Form.Item>                
+                    <Form.Item className='mt-6 flex gap-4'>
+                        <Button className='text-black ' onClick={handleBack}> Back</Button>                    
+                        <Button type='primary' className='bg-blue-500 ml-4' htmlType='submit'>Next</Button>
+                    </Form.Item>
+                                            
                 </Form>                   
             </div>
         </>
