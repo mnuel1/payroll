@@ -4,7 +4,7 @@ import { Signature } from '../Signature/Signature';
 
 const { RangePicker } = DatePicker;
 
-export const BasicInfo = ({handleNext, basicInfoData}) => {
+export const BasicInfo = ({handleNext, updateRegisterData}) => {
 
     const [form] = Form.useForm();
 
@@ -25,7 +25,7 @@ export const BasicInfo = ({handleNext, basicInfoData}) => {
             }}
             defaultValue="63"
         >
-            <Option value="63">+63</Option>            
+            <Select.Option value="63">+63</Select.Option>            
         </Select>
         
     );
@@ -34,9 +34,12 @@ export const BasicInfo = ({handleNext, basicInfoData}) => {
         const values = {
             ...fieldsValue,
             'birthdate': fieldsValue['birthdate'].format('YYYY-MM-DD'),
-            
         };
-        console.log(values);
+        
+        Object.keys(values).forEach(key => {
+            updateRegisterData(key, values[key]);
+        });
+
         handleNext()
     }
     return (
@@ -59,7 +62,7 @@ export const BasicInfo = ({handleNext, basicInfoData}) => {
                         <Form.Item
                             hasFeedback
                             label="Last Name"
-                            name="last_name"
+                            name="lastname"
                             validateTrigger="onBlur"
                             rules={[
                                 {                                    
@@ -74,7 +77,7 @@ export const BasicInfo = ({handleNext, basicInfoData}) => {
                         <Form.Item
                             hasFeedback
                             label="Middle Name"
-                            name="middle_name"
+                            name="middlename"
                             validateTrigger="onBlur"                                
                             style={{ display: 'inline-block', margin:'0 8px'}}
                         >
@@ -83,7 +86,7 @@ export const BasicInfo = ({handleNext, basicInfoData}) => {
                         <Form.Item
                             hasFeedback
                             label="First Name"
-                            name="first_name"
+                            name="firstname"
                             validateTrigger="onBlur"
                             rules={[
                                 {

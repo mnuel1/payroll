@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Form, Input, Button } from 'antd';
 
 
-export const Credentials = ({handleNext, handleBack}) => {
+export const Credentials = ({handleNext, handleBack, updateRegisterData}) => {
     const [form] = Form.useForm();
     const validatePassword = (_, value) => {
         // Password strength criteria
@@ -19,7 +19,11 @@ export const Credentials = ({handleNext, handleBack}) => {
         return Promise.resolve();
     };
     const onFinish = (values) => {
-        console.log(values);
+        
+        Object.keys(values).forEach(key => {
+            updateRegisterData(key, values[key]);
+        });
+        
         handleNext()
     }
     return (
@@ -74,7 +78,8 @@ export const Credentials = ({handleNext, handleBack}) => {
                             },
                         ]}                        
                     >
-                        <Input placeholder="Input a strong password" />
+                        <Input.Password placeholder="Input a strong password"/>
+                        
                     </Form.Item>
                     <Form.Item
                         hasFeedback
@@ -97,7 +102,7 @@ export const Credentials = ({handleNext, handleBack}) => {
                             }),
                         ]}                        
                     >
-                        <Input placeholder="Repeat your password to confirm it" />
+                        <Input.Password placeholder="Repeat your password to confirm it"/>                        
                     </Form.Item>                
                     <Form.Item className='mt-6 flex gap-4'>
                         <Button className='text-black ' onClick={handleBack}> Back</Button>                    
