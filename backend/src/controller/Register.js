@@ -9,17 +9,16 @@ require('dotenv').config();
 
 const Register = expressAsyncHandler(async (req, res) => {
     const {
-        tin,
-        usertype,
+        tin,        
         firstname,
         middlename,
         lastname,
         birthdate,
         contact,
-        registeredAddress,
-        zipCode,
+        address,
+        zip_code,
         foreignAddress,
-        emailAddress,
+        email,
         password,
         signature,
     } = req.body;
@@ -27,18 +26,36 @@ const Register = expressAsyncHandler(async (req, res) => {
     const createdAt = moment().tz('Asia/Manila').format('YYYY-MM-DD HH:mm:ss');
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
-    const signatureData = signature.split(',')[1];
-    const decodedSignature = Buffer.from(signatureData, 'base64');
+    // const signatureData = signature.split(',')[1];
+    const signatureData = "signature.split(',')[1];"
+    // const decodedSignature = Buffer.from(signatureData, 'base64');
+    const decodedSignature = "Buffer.from(signatureData, 'base64');"
     const id = uuidv4();
     const uniqueId = id.replace(/-/g, '').substring(0, 12);
 
     try {
-        const usernameFromEmail = emailAddress.split('@')[0];
+        const usernameFromEmail = email.split('@')[0];
         const userDatabaseName = `payroll_${usernameFromEmail}`;
+
+        // Start a transaction
+        await connection.mainConnection.query('START TRANSACTION');
+
+        // Check if the user already exists
+        const userExists = await connection.mainConnection.query(
+            'SELECT COUNT(*) as count FROM tbl_user WHERE email_address = ? FOR UPDATE',
+            [email]
+        );
+
+        if (userExists[0].count > 0) {
+            // User already exists, roll back the transaction
+            await connection.mainConnection.query('ROLLBACK');
+            res.status(400).json({ title: 'User Already Exists', message: 'A user with this email address already exists.' });
+            return;
+        }
 
         await connection.mainConnection.query(
             'INSERT INTO tbl_user (user_num, firstname, middlename, lastname, birthdate, contact, tin, registered_address, zip_code, foreign_address, email_address, password, signature, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [uniqueId, firstname, middlename, lastname, birthdate, contact, tin, registeredAddress, zipCode, foreignAddress, emailAddress, hash, decodedSignature, createdAt]
+            [uniqueId, firstname, middlename, lastname, birthdate, contact, tin, address, zip_code, foreignAddress, email, hash, decodedSignature, createdAt]
         );
         
         await connection.mainConnection.query(`CREATE DATABASE IF NOT EXISTS ${userDatabaseName}`);
@@ -86,10 +103,10 @@ const Register = expressAsyncHandler(async (req, res) => {
                 birthdate,
                 contact,
                 tin,
-                registeredAddress,
-                zipCode,
+                address,
+                zip_code,
                 foreignAddress,
-                emailAddress,
+                email,
                 hash,
                 decodedSignature,
                 createdAt,
@@ -108,7 +125,10 @@ const Register = expressAsyncHandler(async (req, res) => {
     
 
         console.log(`Database creation successful: ${userDatabaseName}`);
-
+        
+        // Commit the transaction
+        await connection.mainConnection.query('COMMIT');
+        
         res.status(200).json({ title: 'Success', message: 'Registration Successful' });
     } catch (error) {
         console.error(error);
