@@ -10,7 +10,7 @@ const mainConnection = mysql.createPool({
     database: process.env.DB_NAME,
 });
 
-const getUserDatabaseConnection = (username) => {
+const getUserDatabaseConnection = async (username) => {
     const userDatabaseName = `payroll_${username.split('@')[0]}`;
     const pool = mysql.createPool({
         connectionLimit: 10, 
@@ -20,7 +20,7 @@ const getUserDatabaseConnection = (username) => {
         database: userDatabaseName,
     });
 
-    pool.query = util.promisify(pool.query);
+    pool.query = await util.promisify(pool.query);
 
     return pool;
 };
