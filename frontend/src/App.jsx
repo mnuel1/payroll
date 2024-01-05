@@ -5,7 +5,7 @@ import { Layout } from './layout/Layout'
 import { Login } from './pages/Login'
 import { Register } from './pages/Register'
 
-// import { Dashboard } from './pages/admin/Dashboard'
+import { Dashboard } from './pages/admin/Dashboard'
 import { AdminLayout } from './layout/AdminLayout'
 
 // import { Account } from './pages/admin/Account'
@@ -30,7 +30,8 @@ function App() {
           <Route path='sign-up' element={<Register />} />
         </Route>
         <Route path="/admin" element={<AdminLayout />} >
-          {/* <Route index element={<Dashboard />} />           */}
+          <Route index element={<Dashboard />} />
+          <Route path="payslip" element={<Billing />} />
           <Route path="billing" element={<Billing />} />
           {/* <Route path="account" element={<Account title="Voucher | Account Settings"/>} /> */}
         </Route>

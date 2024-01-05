@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { BiSolidReceipt } from 'react-icons/bi'
+import { Card } from '../../components/Card/Card'
 import LineChart from '../../components/Chart/LineChart'
+
 import { Authentication } from '../../Auth/Authentication'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Button, Empty } from 'antd';
@@ -34,14 +36,25 @@ export const Dashboard = () => {
             value: '20',
             icon: BiSolidReceipt,
         },
+        {
+            id: 3,
+            title: 'Another',
+            value: '20',
+            icon: BiSolidReceipt,
+        },
+        {
+            id: 4,
+            title: 'Another',
+            value: '20',
+            icon: BiSolidReceipt,
+        },
     ]);
   
     useEffect(() => {
         
         if(!isAuthenticated()){
             navigate('/sign-in', { state: { message: "You must login first", from: location.pathname } });
-        }
-        
+        }        
     },[])
   
     // useEffect(() => {
@@ -68,22 +81,30 @@ export const Dashboard = () => {
     // }, []);
   
     return (
-        <div className='w-full px-5 md:px-10'>
+        <div className='w-full px-5 md:px-20'>
+            
+            
             <h1 className='text-4xl text-primary'>Dashboard</h1>
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-10 w-full mt-[4rem]'>
-                <div className='col-span-2'>
-                    <div className='w-full grid grid-cols-2 p-2 gap-10 mt-10'>
+            
+            <div className='mt-20'>
+                <span className='text-gray-400 text-sm ml-2
+                '>Dashboard /<span className='text-blue-500 cursor-pointer'> Dashboard</span></span>
+                <h1 className='text-4xl text-primary'>Dashboard</h1>
+                    <div className='w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 p-2 gap-10 mt-10'>
 
                         {cardData.map(items => (
                             <Card key={items.id} {...items}/>
                             ))
                         }
                     </div>
-                    <div className='w-full rounded-xl mt-10 p-5 bg-onMouse'>
-                        <LineChart voucherData={voucherData}/>
-                    </div>
+                    
                 </div>
-                <div className='col-span-1 w-full'>
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-10 w-full mt-[4rem]'>
+            
+                <div className='w-full rounded-xl mt-10 p-5 bg-onMouse col-span-2'>
+                    <LineChart/>
+                </div>
+                <div className='col-span-1 w-full mt-10'>
                     <div className='bg-onMouse max-h-screen'>
                         <div className='bg-primary p-2 rounded-tl-md rounded-tr-md'>
                             <h1 className='text-white font-primary'>Recent Voucher</h1>
@@ -119,7 +140,7 @@ export const Dashboard = () => {
                                     </Link>
                                 </Empty>
                             </div>
-                        {/* )} */}                        
+                        {/* )}                   */}
                     </div>
                 </div>
             </div>

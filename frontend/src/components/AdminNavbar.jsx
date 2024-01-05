@@ -26,15 +26,17 @@ export const AdminNavbar = () => {
     },[logout])
 
   return (
-    <div className='fixed w-full z-[20] flex justify-end items-center py-4 px-[1rem] md:px-[1rem] font-secondary bg-optional'>
-        <div className='flex items-center justify-end gap-5'>
+    <div className='fixed w-full z-[20] flex items-center justify-between py-4 px-[1rem] md:px-[1rem] font-secondary bg-optional'>
+        <h1 className='text-primary text-white text-lg font-bold ml-2 sm:ml-10 md:ml-20'>PAYROLL</h1>
+        <div className='flex items-center justify-center gap-5 mr-2 sm:mr-10 md:mr-20'>
+            
             <button className={`relative p-2 hover:bg-primary rounded-md transition-all delay-50 ease-in-out
                 cursor-pointer group ${showNotifications ? "bg-primary" : "bg-transparent"}`}
                 onClick={() => setShowNotifications(prevState => !prevState)}>
                 <RiNotification2Fill className={`text-2xl group-hover:text-secondary ${showNotifications ? "text-secondary": "text-white"}`}/>
                 <div className='w-3 h-3 bg-red-500 absolute rounded-full top-2 right-2 border-2 border-gray-200'></div>
             </button>
-            <div className=''>
+            <div className='z-50'>
                 <svg 
                     xmlns="http://www.w3.org/2000/svg" 
                     fill="none" 
@@ -70,8 +72,9 @@ export const AdminNavbar = () => {
                 <AiFillDashboard className='text-xl'/>
                 Dashboard
             </NavLink>
+            
             <NavLink 
-                to="voucher"
+                to="payslip"
                 className={({isActive}) => 
                 isActive ? 'text-white p-5 bg-optional rounded-md flex items-center gap-3' :
                 'text-white hover:bg-optional p-5 flex items-center gap-3 rounded-md transition-all delay-50 ease-in-out'}
@@ -79,8 +82,11 @@ export const AdminNavbar = () => {
                 
             >
                     <BiSolidReceipt className='text-xl'/>
-                    Voucher
+                    Payslip
             </NavLink>
+            <div></div>
+            
+            
             <NavLink 
                 to="billing"
                 className={({isActive}) => 

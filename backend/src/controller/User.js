@@ -18,9 +18,9 @@ const Login = expressAsyncHandler(async (req, res) => {
             const passwordMatch = await bcrypt.compare(password, storedHashedPassword);
 
             if(passwordMatch){
-                const userDatabaseConnection = getUserDatabaseConnection(username);
-                console.log(userDatabaseConnection?.config);
                 
+                const userDatabaseConnection = await getUserDatabaseConnection(username);
+                                
                 userDatabaseConnection.query(`USE payroll_${username.split('@')[0]}`);
                 
                 const token = jwt.sign(
