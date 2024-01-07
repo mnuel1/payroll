@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Button, Checkbox, Form, Input } from 'antd'
 import { BiLogInCircle } from 'react-icons/bi'
-
+import { Modal } from '../components/Modal/Modal'
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { Authentication } from '../Auth/Authentication'
@@ -26,7 +26,7 @@ export const Login = () => {
             password: values.password,
             checked: values.remember
         }
-        console.log(credentials);
+        
         setLoading(true)
             try{
                 const response = await axios.post('http://localhost:4000/api/user', credentials);
@@ -72,7 +72,7 @@ export const Login = () => {
   
   
     return (
-
+        
         <div className='w-full h-screen flex flex-col justify-center px-[1rem] '>
             <div className='flex flex-col items-center gap-5'>
                 <h1 className='text-2xl font-primary text-center'>WELCOME TO <span className='text-primary font-semibold'>PAYROLL</span> SYSTEM</h1>
@@ -161,9 +161,9 @@ export const Login = () => {
                     </h1>
                 </Form>
             </div>
-            {/* {showStatus &&
+            {showStatus &&
             <Modal title={statusMessage.title} comment={statusMessage.comment} toggle={() => setShowStatus(prevState => !prevState)}/>
-            } */}
+            }
         </div>
     )
 }

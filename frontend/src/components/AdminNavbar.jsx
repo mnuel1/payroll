@@ -62,7 +62,7 @@ export const AdminNavbar = () => {
             </div>
             <div className='flex flex-col gap-3 mt-20 p-3'>
             <NavLink 
-                to="."
+                to="/admin"
                 end
                 className={({isActive}) => 
                 isActive ? 'text-white p-5 bg-optional rounded-md flex items-center gap-3' :
@@ -74,7 +74,7 @@ export const AdminNavbar = () => {
             </NavLink>
             
             <NavLink 
-                to="payslip"
+                to="/employees"
                 className={({isActive}) => 
                 isActive ? 'text-white p-5 bg-optional rounded-md flex items-center gap-3' :
                 'text-white hover:bg-optional p-5 flex items-center gap-3 rounded-md transition-all delay-50 ease-in-out'}
@@ -82,7 +82,7 @@ export const AdminNavbar = () => {
                 
             >
                     <BiSolidReceipt className='text-xl'/>
-                    Payslip
+                    Employees
             </NavLink>
             <div></div>
             

@@ -12,6 +12,10 @@ import { AdminLayout } from './layout/AdminLayout'
 import { About_us } from './pages/LandingPage/About_us'
 import { Pricing } from './pages/LandingPage/Pricing'
 import { Billing } from './pages/admin/Billing'
+import { Employees } from './pages/admin/Employees'
+import { AddEmployee } from './pages/admin/Employees/AddEmployee'
+import { EditEmployee } from './pages/admin/Employees/EditEmployee'
+
 // import "style.css"
 function App() {
   
@@ -30,11 +34,16 @@ function App() {
           <Route path='sign-up' element={<Register />} />
         </Route>
         <Route path="/admin" element={<AdminLayout />} >
-          <Route index element={<Dashboard />} />
-          <Route path="payslip" element={<Billing />} />
+          <Route index element={<Dashboard />} />          
           <Route path="billing" element={<Billing />} />
           {/* <Route path="account" element={<Account title="Voucher | Account Settings"/>} /> */}
         </Route>
+        <Route path="/employees" element={<AdminLayout />}>
+            <Route index element={<Employees />}/>
+            <Route path="add" element={<AddEmployee />} />
+            <Route path="edit" element={<EditEmployee />} />
+          </Route>
+          
       </Routes>
     </Router>
 
