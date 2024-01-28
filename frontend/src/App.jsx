@@ -16,6 +16,7 @@ import { Employees } from './pages/admin/Employees'
 import { AddEmployee } from './pages/admin/Employees/AddEmployee'
 import { EditEmployee } from './pages/admin/Employees/EditEmployee'
 
+import { Attendance } from './pages/admin/Management/Attendance'
 // import "style.css"
 function App() {
   
@@ -42,8 +43,8 @@ function App() {
             <Route index element={<Employees />}/>
             <Route path="add" element={<AddEmployee />} />
             <Route path="edit" element={<EditEmployee />} />
-          </Route>
-          
+            <Route path="attendance" element={<Attendance />} />
+          </Route>          
       </Routes>
     </Router>
 

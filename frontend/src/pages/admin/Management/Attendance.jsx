@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { EmployeeTable } from '../../components/Table/Table';
+import { AttendanceTable } from '../../../components/Table/AttendanceTable';
 import { PlusCircleOutlined } from '@ant-design/icons';
-import { PayslipForm } from '../../components/PayslipForm/PayslipForm';
-import { Authentication } from '../../Auth/Authentication'
+import { Authentication } from '../../../Auth/Authentication';
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Button, Empty, Input } from 'antd';
 const { Search } = Input;
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-export const Employees = () => {
-
-    const [showEmployeeInfo, setShowEmployeeInfo] = useState(false)
+export const Attendance = () => {
+    
     const { isAuthenticated, getUser, logout } = Authentication();
 
     const navigate = useNavigate();
@@ -31,15 +29,15 @@ export const Employees = () => {
             
             <h1 className='text-4xl text-primary'>Employees</h1>
             
-            <div className={`mt-20 grid ${showEmployeeInfo ? 'grid-cols-2' : 'grid-cols-1'} `}>
+            <div className='mt-20'>
                 <div>              
                     <span className='text-gray-400 text-sm ml-2'>
-                        Employees /<span> </span>
+                        Employees / <span> </span>
                         <span className='text-blue-500 cursor-pointer'> 
-                            Employees Management 
+                        Attendance Management 
                         </span>
                     </span>
-                    <h1 className='text-4xl text-primary'>Employee Management</h1>
+                    <h1 className='text-4xl text-primary'>Attendance Management</h1>
                         
                     <div className='mt-10 ml-4'>
                         <h1 className='text-md text-primary'>Search Employee</h1>
@@ -53,18 +51,18 @@ export const Employees = () => {
                     </div>
 
                     <div className='mt-10 ml-4'>                        
-                        <Link
+                        {/* <Link
                             to={'/employees/add'}>                    
                                 <Button type='primary' className='bg-blue-500 mb-4 
                                 text-primary text-white text-md' icon={<PlusCircleOutlined />}> Add Employee</Button>
-                        </Link>
-                        <EmployeeTable/>                                                                        
+                        </Link> */}
+                        <AttendanceTable/>                                                                        
                     </div>
                 </div>
                 <div className='border-l'>
 
                 </div>
-                {/* <PayslipForm done={true}/> */}
+                
             </div>
            
         </div>
